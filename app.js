@@ -6,6 +6,8 @@ var expressLayouts = require("express-ejs-layouts");
 
 const app = express();
 
+app.use(express.urlencoded({ extended: true })); // to parse the form data and put it in req.body
+
 //db url
 let mongoUrl =
   "mongodb+srv://Kaung_Htet_Zaw:test1234@cluster0.mxbrmhs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -48,6 +50,17 @@ app.get("/", async (req, res) => {
   let blogs = await Blog.find().sort({ createdAt: -1 });
   console.log(blogs);
   res.render("home", { blogs, title: "Home" });
+});
+
+app.post("/blogs", async (req, res) => {
+  let { title, intro, body } = req.body;
+  let blog = new Blog({
+    title,
+    intro,
+    body,
+  });
+  await blog.save();
+  res.redirect("/");
 });
 
 app.get("/about", (req, res) => {

@@ -4,6 +4,11 @@ const app = express();
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
+app.use((req, res, next) => {
+  console.log("first middleware is running");
+  next();
+});
+
 app.get("/", (req, res) => {
   let blogs = [
     { title: "Blog title 1", intro: "This is blog intro 1" },
@@ -15,6 +20,11 @@ app.get("/", (req, res) => {
 
 app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
+});
+
+app.use((req, res, next) => {
+  console.log("second middleware is running");
+  next();
 });
 
 app.get("/contact", (req, res) => {

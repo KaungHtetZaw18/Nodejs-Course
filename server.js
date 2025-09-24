@@ -1,5 +1,9 @@
 const http = require("http");
 const fs = require("fs");
+const _ = require("lodash");
+
+// lodash
+console.log(_.random(20));
 
 const server = http.createServer((req, res) => {
   let fileName;

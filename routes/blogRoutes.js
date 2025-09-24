@@ -1,49 +1,15 @@
 const express = require("express");
-const Blog = require("../models/Blog");
+const BlogController = require("../controllers/BlogController");
 const router = express.Router();
 
-router.get("", async (req, res) => {
-  let blogs = await Blog.find().sort({ createdAt: -1 });
-  res.render("home", { blogs, title: "Home" });
-});
+router.get("", BlogController.index);
 
-router.post("", async (req, res) => {
-  let { title, intro, body } = req.body;
-  let blog = new Blog({
-    title,
-    intro,
-    body,
-  });
-  await blog.save();
-  res.redirect("/");
-});
+router.post("", BlogController.store);
 
-router.get("/create", (req, res) => {
-  res.render("blogs/create", { title: "Blog Create" });
-});
+router.get("/create", BlogController.create);
 
-router.post("/:id/delete", async (req, res, next) => {
-  try {
-    let id = req.params.id;
-    await Blog.findByIdAndDelete(id);
-    res.redirect("/");
-  } catch (e) {
-    console.log(e);
-    next();
-  }
-});
+router.post("/:id/delete", BlogController.delete);
 
-router.get("/:id", async (req, res, next) => {
-  try {
-    let id = req.params.id;
-    let blog = await Blog.findById(id);
-    res.render("blogs/show", {
-      blog,
-      title: "Blog Detail",
-    });
-  } catch (e) {
-    console.log(e);
-    next();
-  }
-});
+router.get("/:id", BlogController.show);
+
 module.exports = router;

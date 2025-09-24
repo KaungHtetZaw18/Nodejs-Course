@@ -10,19 +10,19 @@ app.get("/", (req, res) => {
     { title: "Blog title 2", intro: "This is blog intro 2" },
     { title: "Blog title 3", intro: "This is blog intro 3" },
   ];
-  res.render("home", { blogs });
+  res.render("home", { blogs, title: "Home" });
 });
 
 app.get("/about", (req, res) => {
-  res.render("about");
+  res.render("about", { title: "About" });
 });
 
 app.get("/contact", (req, res) => {
-  res.render("contact");
+  res.render("contact", { title: "Contact" });
 });
 
 app.use((req, res) => {
-  res.status(404).render("404");
+  res.status(404).render("404", { title: "404 Not Found" });
 });
 
 app.listen(3000, () => {

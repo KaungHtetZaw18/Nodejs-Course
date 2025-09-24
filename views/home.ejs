@@ -7,12 +7,9 @@
   </head>
 
   <body>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/contact">Contact</a>
-    </nav>
-    <% if(blogs.length){ %> <% blogs.forEach(blog => { %>
+    <%- include('./components/navbar.ejs') %>
+    <!-- secure -->
+    <%- "<h1>Hello World</h1>" %> <% if(blogs.length){ %> <% blogs.forEach(blog => { %>
     <h1><%= blog.title %></h1>
     <p><%= blog.intro %></p>
     <% }) %> <% } else { %>

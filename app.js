@@ -2,6 +2,10 @@ const express = require("express");
 let morgan = require("morgan");
 
 const app = express();
+
+//db url
+let mongoUrl =
+  "mongodb+srv://Kaung_Htet_Zaw:Kaung@1822002@cluster0.mxbrmhs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 app.set("views", "./views");
 app.set("view engine", "ejs");
 

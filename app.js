@@ -2,6 +2,7 @@ const express = require("express");
 let morgan = require("morgan");
 const mongoose = require("mongoose");
 const Blog = require("./models/Blog");
+var expressLayouts = require("express-ejs-layouts");
 
 const app = express();
 
@@ -22,6 +23,8 @@ mongoose
 
 app.set("views", "./views");
 app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("layout", "layouts/default");
 
 app.use(morgan("dev"));
 app.use(express.static("public"));
@@ -53,6 +56,10 @@ app.get("/about", (req, res) => {
 
 app.get("/contact", (req, res) => {
   res.render("contact", { title: "Contact" });
+});
+
+app.get("/blogs/create", (req, res) => {
+  res.render("blogs/create", { title: "Blog Create" });
 });
 
 app.use((req, res) => {

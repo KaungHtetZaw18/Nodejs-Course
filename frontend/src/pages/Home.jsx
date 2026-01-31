@@ -7,6 +7,7 @@ export default function Home() {
   let [recipes, setRecipes] = useState([]);
   let [links, setLinks] = useState(null);
   let navigate = useNavigate();
+
   let location = useLocation();
   let searchQuery = new URLSearchParams(location.search);
   let page = searchQuery.get("page"); // string
@@ -35,6 +36,7 @@ export default function Home() {
     if (recipes.length === 1 && page > 1) {
       navigate("/?page=" + (page - 1));
     } else {
+      //handle delete on client side
       setRecipes((prev) => prev.filter((r) => r._id !== _id));
     }
   };

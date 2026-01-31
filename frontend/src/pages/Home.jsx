@@ -1,50 +1,24 @@
+import { useState } from "react";
+import { useEffect } from "react";
+import RecipeCard from "../components/RecipeCard";
 export default function Home() {
+  let [recipes, setRecipes] = useState([]);
+  useEffect(() => {
+    let fetchRecipes = async () => {
+      let response = await fetch("http://localhost:8000/api/recipes");
+      if (response.ok) {
+        let data = await response.json();
+        setRecipes(data);
+      }
+    };
+    fetchRecipes();
+  }, []);
   return (
     <div className="space-y-3">
-      <div className="bg-white p-5 rounded-2xl space-y-4">
-        <h3 className="text-xl font-bold text-orange-400">
-          How to make a cake ?
-        </h3>
-        <p>Description</p>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus
-          unde recusandae nemo iure laudantium maiores voluptatibus nesciunt
-          nisi distinctio tenetur, quos fuga nihil aliquid quibusdam alias odio
-          soluta, corrupti impedit.
-        </p>
-        <div className="space-x-2">
-          <span>Ingredients -</span>
-          <span className="bg-orange-400 text-white px-2 py-1 text-sm rounded-full">
-            3 eggs
-          </span>
-          <span className="bg-orange-400 text-white px-2 py-1 text-sm rounded-full">
-            baking soda
-          </span>
-        </div>
-        <p>Published at - 5mins ago</p>
-      </div>
-      <div className="bg-white p-5 rounded-2xl space-y-4">
-        <h3 className="text-xl font-bold text-orange-400">
-          How to make a cake ?
-        </h3>
-        <p>Description</p>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus
-          unde recusandae nemo iure laudantium maiores voluptatibus nesciunt
-          nisi distinctio tenetur, quos fuga nihil aliquid quibusdam alias odio
-          soluta, corrupti impedit.
-        </p>
-        <div className="space-x-2">
-          <span>Ingredients -</span>
-          <span className="bg-orange-400 text-white px-2 py-1 text-sm rounded-full">
-            3 eggs
-          </span>
-          <span className="bg-orange-400 text-white px-2 py-1 text-sm rounded-full">
-            baking soda
-          </span>
-        </div>
-        <p>Published at - 5mins ago</p>
-      </div>
+      {recipes.length &&
+        recipes.map((recipe) => (
+          <RecipeCard recipe={recipe} key={recipe._id} />
+        ))}
     </div>
   );
 }

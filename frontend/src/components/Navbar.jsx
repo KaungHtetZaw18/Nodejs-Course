@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 export default function Navbar() {
   return (
-    <nav class="flex justify-between items-center p-5">
+    <nav className="flex justify-between items-center p-5 bg-white">
       <div>
         <h1 className="font-bold text-2xl text-orange-400">Recipicity</h1>
       </div>

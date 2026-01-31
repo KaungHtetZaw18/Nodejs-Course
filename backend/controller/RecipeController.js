@@ -1,5 +1,6 @@
 const Recipe = require("../models/Recipe");
 const mongoose = require("mongoose");
+
 const RecipeController = {
   index: async (req, res) => {
     let limit = 6;
@@ -8,7 +9,26 @@ const RecipeController = {
       .skip((page - 1) * limit) // page = 3  (3-1) * 6 = 12 (12 will be skip)
       .limit(limit)
       .sort({ createdAt: -1 });
-    return res.json(recipes);
+    let totalRecipeCount = await Recipe.countDocuments();
+    let totalPagesCount = Math.ceil(totalRecipeCount / limit);
+    //backend info (hardcode)
+    let links = {
+      nextPage: totalPagesCount == page ? false : true,
+      previousPage: page == 1 ? false : true,
+      currentPage: page, //hardcode
+      loopableLinks: [],
+    };
+
+    //generate loopableLink array
+    for (let index = 0; index < totalPagesCount; index++) {
+      let number = index + 1;
+      links.loopableLinks.push({ number });
+    }
+    let response = {
+      links,
+      data: recipes,
+    };
+    return res.json(response);
   },
   store: async (req, res) => {
     const { title, description, ingredients } = req.body;

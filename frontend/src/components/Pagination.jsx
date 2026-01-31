@@ -23,8 +23,8 @@ export default function Pagination({ links, page }) {
             className="isolate inline-flex -space-x-px rounded-md shadow-sm"
             aria-label="Pagination"
           >
-            <a
-              href="#"
+            <Link
+              to={`${links.previousPage ? "/?page=" + (page - 1) : "/?page=" + page}`}
               className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
             >
               <span className="sr-only">Previous</span>
@@ -40,9 +40,9 @@ export default function Pagination({ links, page }) {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </Link>
             {links.loopableLinks.map((link) => {
-              if (links.currentPage == page) {
+              if (link.number == page) {
                 return (
                   <Link
                     key={link.number}
@@ -65,8 +65,8 @@ export default function Pagination({ links, page }) {
                 );
               }
             })}
-            <a
-              href="#"
+            <Link
+              to={`${links.nextPage ? "/?page=" + (page + 1) : "/?page=" + page}`}
               className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
             >
               <span className="sr-only">Next</span>
@@ -82,7 +82,7 @@ export default function Pagination({ links, page }) {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </Link>
           </nav>
         </div>
       </div>

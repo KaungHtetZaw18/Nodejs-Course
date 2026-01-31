@@ -1,22 +1,10 @@
-import { Outlet, Link } from "react-router-dom";
-
+import { Outlet } from "react-router-dom";
+import Navbar from "./components/Navbar";
 function App() {
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/contact">Contact</Link>
-          </li>
-        </ul>
-      </nav>
-      <div>
+      <Navbar />
+      <div className="p-5 bg-[#F1F1F1] h-screen ">
         <Outlet />
       </div>
     </>

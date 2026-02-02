@@ -1,9 +1,9 @@
 export default function SignInForm() {
   return (
     <div class="w-full max-w-lg mx-auto">
-      <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h1 className="text-2xl font-bold text-center">Login Form</h1>
-        <div class="mb-4">
+        <div className="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
             Email
           </label>

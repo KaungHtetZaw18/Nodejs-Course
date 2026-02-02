@@ -20,7 +20,12 @@ mongoose
     console.error("DB Connection Error:", err);
   });
 
-app.use(cors()); //local development --Warning--
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+); //local development --Warning--
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());

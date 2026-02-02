@@ -3,6 +3,7 @@ require("dotenv").config();
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const recipesRoutes = require("./routes/recipes");
+const usersRoutes = require("./routes/users");
 const cors = require("cors");
 const app = express();
 
@@ -27,3 +28,4 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/recipes", recipesRoutes);
+app.use("/api/users", usersRoutes);

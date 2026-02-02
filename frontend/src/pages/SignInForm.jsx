@@ -83,7 +83,7 @@ export default function SignInForm() {
             to="/sign-in"
             className="inline-block align-baseline font-bold text-sm text-orange-400 hover:text-orange-400"
           >
-            Forget Password
+            Register here
           </Link>
         </div>
       </form>

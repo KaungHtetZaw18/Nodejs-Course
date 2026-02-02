@@ -27,6 +27,7 @@ app.use(
   }),
 ); //local development --Warning--
 app.use(express.json());
+app.use(express.static("public"));
 app.use(morgan("dev"));
 app.use(cookieParser());
 

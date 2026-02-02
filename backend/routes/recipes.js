@@ -3,7 +3,7 @@ const RecipeController = require("../controller/RecipeController");
 const { body } = require("express-validator");
 const handleErrorMessage = require("../middlewares/handleErrorMessage");
 const router = express.Router();
-
+const upload = require("../helpers/upload");
 router.get("", RecipeController.index);
 router.post(
   "",
@@ -16,6 +16,7 @@ router.post(
   RecipeController.store,
 );
 router.get("/:id", RecipeController.show);
+router.post("/:id/upload", upload.single("photo"), RecipeController.upload);
 router.delete("/:id", RecipeController.destroy);
 router.patch("/:id", RecipeController.update);
 

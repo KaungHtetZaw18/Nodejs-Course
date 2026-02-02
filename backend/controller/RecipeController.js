@@ -82,6 +82,14 @@ const RecipeController = {
       return res.status(500).json({ msg: "internet server error" });
     }
   },
+  upload: (req, res) => {
+    try {
+      console.log(req.file);
+      return res.json({ image: "uploaded" });
+    } catch (e) {
+      return res.status(500).json({ msg: "internet server error" });
+    }
+  },
 };
 
 module.exports = RecipeController;

@@ -23,7 +23,7 @@ mongoose
 app.use(cors()); //local development --Warning--
 app.use(express.json());
 app.use(morgan("dev"));
-paa.use(cookieParser());
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   return res.json({ hello: "world" });
@@ -33,7 +33,7 @@ app.use("/api/recipes", recipesRoutes);
 app.use("/api/users", usersRoutes);
 
 app.get("/set-cookie", (req, res) => {
-  // res.setHeader('Set-Cookie','name=hlaingminthan');
+  // res.setHeader('Set-Cookie','name=kaunghtetzaw');
   res.cookie("name", "aungaung");
   res.cookie("important-key", "value", { httpOnly: true });
   return res.send("cookie already set");

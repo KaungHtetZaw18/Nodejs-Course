@@ -107,7 +107,6 @@ export default function SignUpForm() {
           <Link
             to="/sign-in"
             className="inline-block align-baseline font-bold text-sm text-orange-400 hover:text-orange-400"
-            href="#"
           >
             Login here
           </Link>

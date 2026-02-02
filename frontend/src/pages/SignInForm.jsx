@@ -1,21 +1,8 @@
-import { Link } from "react-router-dom";
-
-export default function SignUpForm() {
+export default function SignInForm() {
   return (
     <div class="w-full max-w-lg mx-auto">
       <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h1 className="text-2xl font-bold text-center">Register Form</h1>
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-            Name
-          </label>
-          <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="name"
-            type="text"
-            placeholder="Name"
-          />
-        </div>
+        <h1 className="text-2xl font-bold text-center">Login Form</h1>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
             Email
@@ -47,14 +34,14 @@ export default function SignUpForm() {
             class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="button"
           >
-            Register
+            Login
           </button>
-          <Link
-            class="inline-block align-baseline font-bold text-sm text-orange-500 hover:text-orange-800"
-            to="/sign-in"
+          <a
+            class="inline-block align-baseline font-bold text-sm text-orange-500 hover:text-blue-800"
+            href="#"
           >
-            Login Here
-          </Link>
+            Forgot Password?
+          </a>
         </div>
       </form>
       <p class="text-center text-gray-500 text-xs">

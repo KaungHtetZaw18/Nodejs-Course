@@ -1,25 +1,29 @@
 const express = require("express");
 require("dotenv").config();
 const morgan = require("morgan");
+const mongoose = require("mongoose");
 const recipesRoutes = require("./routes/recipes");
 const usersRoutes = require("./routes/users");
-const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-
 const app = express();
-const mongoURL =
-  "mongodb+srv://hlaingminthan:test1234@mern-cluster.cut3lbf.mongodb.net/?retryWrites=true&w=majority";
-mongoose.connect(mongoURL).then(() => {
-  console.log("connected to db");
-  app.listen(process.env.PORT, () => {
-    console.log("app is running on localhost:" + process.env.PORT);
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("Connected to DB");
+    app.listen(process.env.PORT, () => {
+      console.log("App is running on localhost:" + process.env.PORT);
+    });
+  })
+  .catch((err) => {
+    console.error("DB Connection Error:", err);
   });
-});
-app.use(cors()); //local development --WARNING---
+
+app.use(cors()); //local development --Warning--
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cookieParser());
+paa.use(cookieParser());
 
 app.get("/", (req, res) => {
   return res.json({ hello: "world" });

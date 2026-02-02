@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 import Pagination from "../components/Pagination";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import axios from "../helpers/axios";
 export default function Home() {
   let [recipes, setRecipes] = useState([]);
   let [links, setLinks] = useState(null);
@@ -15,11 +15,9 @@ export default function Home() {
 
   useEffect(() => {
     let fetchRecipes = async () => {
-      let response = await fetch(
-        "http://localhost:8000/api/recipes?page=" + page,
-      );
-      if (response.ok) {
-        let data = await response.json();
+      let response = await axios("/api/recipes?page=" + page);
+      if (response.status === 200) {
+        let data = response.data;
 
         setLinks(data.links);
         setRecipes(data.data);

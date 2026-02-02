@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+
 const AuthMiddleware = (req, res, next) => {
   let token = req.cookies.jwt;
   if (token) {
@@ -12,7 +13,6 @@ const AuthMiddleware = (req, res, next) => {
   } else {
     return res.status(400).json({ message: "token need to provide" });
   }
-  //else
 };
 
 module.exports = AuthMiddleware;

@@ -30,6 +30,10 @@ const UserController = {
       return res.status(400).json({ error: e.message });
     }
   },
+  logout: (req, res) => {
+    res.cookie("jwt", "", { maxAge: 1 });
+    return res.json({ message: "user logged out" });
+  },
 };
 
 module.exports = UserController;

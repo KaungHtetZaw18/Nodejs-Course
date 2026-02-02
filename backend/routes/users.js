@@ -1,10 +1,13 @@
 const express = require("express");
-const router = express.Router();
-const { body } = require("express-validator");
 const UserController = require("../controller/UserController");
 const handleErrorMessage = require("../middlewares/handleErrorMessage");
-router.post("/login", UserController.login);
+const { body } = require("express-validator");
 const User = require("../models/User");
+
+const router = express.Router();
+
+router.post("/login", UserController.login);
+router.post("/logout", UserController.logout);
 
 router.post(
   "/register",

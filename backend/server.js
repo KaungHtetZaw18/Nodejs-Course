@@ -7,7 +7,7 @@ const usersRoutes = require("./routes/users");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
-
+const AuthMiddleware = require("./middlewares/AuthMiddleware");
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
   return res.json({ hello: "world" });
 });
 
-app.use("/api/recipes", recipesRoutes);
+app.use("/api/recipes", AuthMiddleware, recipesRoutes);
 app.use("/api/users", usersRoutes);
 
 app.get("/set-cookie", (req, res) => {

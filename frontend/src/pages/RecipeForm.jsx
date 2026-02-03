@@ -8,6 +8,8 @@ export default function RecipeForm() {
   let navigate = useNavigate();
   let { id } = useParams();
   let [ingredients, setIngredients] = useState([]);
+  let [file, setFile] = useState(null);
+  let [preview, setPreview] = useState(null);
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
   let [newIngredient, setNewIngredient] = useState("");
@@ -45,12 +47,34 @@ export default function RecipeForm() {
       } else {
         res = await axios.post("/api/recipes", recipe);
       }
+      let formData = new FormData();
+      formData.set("photo", file);
+      let uploadRes = await axios.post(
+        `./api/recipes/${res.data._id}/upload`,
+        formData,
+        {
+          headers: {
+            Accept: "multipart/form-data",
+          },
+        },
+      );
+      console.log(uploadRes);
       if (res.status === 200) {
         navigate("/");
       }
     } catch (e) {
       setErrors(Object.keys(e.response.data.errors));
     }
+  };
+  let upload = (e) => {
+    let file = e.target.files[0];
+    setFile(file);
+
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      setPreview(e.target.result);
+    };
+    fileReader.readAsDataURL(file);
   };
   return (
     <div className="mx-auto max-w-md border-2 border-white p-4">
@@ -66,6 +90,8 @@ export default function RecipeForm() {
               </li>
             ))}
         </ul>
+        <input type="file" onChange={upload} />
+        {preview && <img src={preview} />}
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}

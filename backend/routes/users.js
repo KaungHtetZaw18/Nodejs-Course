@@ -3,9 +3,10 @@ const UserController = require("../controller/UserController");
 const handleErrorMessage = require("../middlewares/handleErrorMessage");
 const { body } = require("express-validator");
 const User = require("../models/User");
-
+const AuthMiddleware = require("../middlewares/AuthMiddleware");
 const router = express.Router();
 
+router.get("/me", AuthMiddleware, UserController.me);
 router.post("/login", UserController.login);
 router.post("/logout", UserController.logout);
 

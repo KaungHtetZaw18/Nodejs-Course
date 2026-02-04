@@ -8,12 +8,19 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
 const AuthMiddleware = require("./middlewares/AuthMiddleware");
+const cron = require("node-cron");
+let User = require("./models/User");
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Connected to DB");
     app.listen(process.env.PORT, () => {
       console.log("App is running on localhost:" + process.env.PORT);
+      cron.schedule("*/4 * * * * *", async () => {
+        let user = await User.findByIdAndUpdate("698030f98ba1d32c3295298e", {
+          name: "mgmg" + Math.random(),
+        });
+      });
     });
   })
   .catch((err) => {

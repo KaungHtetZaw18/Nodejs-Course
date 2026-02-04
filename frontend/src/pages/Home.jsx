@@ -40,12 +40,18 @@ export default function Home() {
   };
 
   return (
-    <div className="space-y-3">
-      {!!recipes.length &&
-        recipes.map((recipe) => (
-          <RecipeCard recipe={recipe} key={recipe._id} onDeleted={onDeleted} />
-        ))}
+    <>
+      <div className="grid grid-cols-3 space-x-2 space-y-3">
+        {!!recipes.length &&
+          recipes.map((recipe) => (
+            <RecipeCard
+              recipe={recipe}
+              key={recipe._id}
+              onDeleted={onDeleted}
+            />
+          ))}
+      </div>
       {!!links && <Pagination links={links} page={page || 1} />}
-    </div>
+    </>
   );
 }

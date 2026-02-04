@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import plus from "../assets/plus.svg";
 import Ingredients from "../components/Ingredients";
 import axios from "../helpers/axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function RecipeForm() {
-  let navigate = useNavigate();
   let { id } = useParams();
+  let navigate = useNavigate();
   let [ingredients, setIngredients] = useState([]);
+  let [title, setTitle] = useState("");
   let [file, setFile] = useState(null);
   let [preview, setPreview] = useState(null);
-  let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
   let [newIngredient, setNewIngredient] = useState("");
   let [errors, setErrors] = useState([]);
@@ -20,14 +20,17 @@ export default function RecipeForm() {
       if (id) {
         let res = await axios.get("/api/recipes/" + id);
         if (res.status === 200) {
+          setPreview(import.meta.env.VITE_BACKEND_URL + res.data.photo);
           setTitle(res.data.title);
           setDescription(res.data.description);
           setIngredients(res.data.ingredients);
         }
       }
     };
+
     fetchRecipe();
   }, [id]);
+
   let addIngredient = () => {
     setIngredients((prev) => [newIngredient, ...prev]);
     setNewIngredient("");
@@ -47,10 +50,14 @@ export default function RecipeForm() {
       } else {
         res = await axios.post("/api/recipes", recipe);
       }
+
+      // file
       let formData = new FormData();
       formData.set("photo", file);
+
+      //upload
       let uploadRes = await axios.post(
-        `./api/recipes/${res.data._id}/upload`,
+        `/api/recipes/${res.data._id}/upload`,
         formData,
         {
           headers: {
@@ -69,11 +76,13 @@ export default function RecipeForm() {
   let upload = (e) => {
     let file = e.target.files[0];
     setFile(file);
-
+    //preview
     let fileReader = new FileReader();
+
     fileReader.onload = (e) => {
       setPreview(e.target.result);
     };
+
     fileReader.readAsDataURL(file);
   };
   return (
@@ -91,7 +100,7 @@ export default function RecipeForm() {
             ))}
         </ul>
         <input type="file" onChange={upload} />
-        {preview && <img src={preview} />}
+        {preview && <img src={preview} alt="" />}
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -128,7 +137,7 @@ export default function RecipeForm() {
           type="submit"
           className="w-full px-3 py-1 rounded-full bg-orange-400 text-white"
         >
-          {id ? "Update" : "Create"} Recipe
+          {id ? "Update" : "Create "} Recipe
         </button>
       </form>
     </div>

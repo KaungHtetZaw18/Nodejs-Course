@@ -10,7 +10,7 @@ const app = express();
 const AuthMiddleware = require("./middlewares/AuthMiddleware");
 const cron = require("node-cron");
 let User = require("./models/User");
-const nodemailer = require("nodemailer");
+const sendEmail = require("./helpers/sendEmail");
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -40,8 +40,11 @@ app.use(express.static("public"));
 app.use(morgan("dev"));
 app.use(cookieParser());
 
+app.set("views", "./views");
+app.set("view engine", "ejs");
+
 app.get("/", (req, res) => {
-  return res.json({ hello: "world" });
+  return res.render("email");
 });
 
 app.use("/api/recipes", AuthMiddleware, recipesRoutes);
@@ -54,24 +57,16 @@ app.get("/set-cookie", (req, res) => {
   return res.send("cookie already set");
 });
 
-app.get("/send-email", async (req, res) => {
-  // Looking to send emails in production? Check out our Email API/SMTP product!
-  var transporter = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port: 2525,
-    auth: {
-      user: "42ce88383e7e58",
-      pass: "81e41949e02a02",
+app.get("/send-email", (req, res) => {
+  sendEmail({
+    view: "email",
+    data: {
+      name: "AungAung",
     },
-  });
-  const info = await transporter.sendMail({
     from: "mgmg@gmail.com",
-    to: "kaunghtetzaw@gmail.com",
-    subject: "Hello This is email title",
-    html: "<b>Hello world this is email to kaung htet zaw</b>", // HTML version of the message
+    to: "aungaung@gmail.com",
+    subject: "Hello AungAung",
   });
-
-  console.log("Message sent:", info.messageId);
   return res.send("email already sent");
 });
 

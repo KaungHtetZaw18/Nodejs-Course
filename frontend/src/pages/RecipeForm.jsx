@@ -66,7 +66,7 @@ export default function RecipeForm() {
         },
       );
       console.log(uploadRes);
-      if (res.status === 200) {
+      if (uploadRes.status === 200) {
         navigate("/");
       }
     } catch (e) {

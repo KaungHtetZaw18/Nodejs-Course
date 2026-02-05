@@ -12,7 +12,7 @@ export default function RecipeCard({ recipe, onDeleted }) {
     <div className="bg-white p-5 rounded-2xl space-y-3">
       <img
         className="mx-auto h-64 object-contain"
-        src={import.meta.env.VITE_BACKEND_URL + recipe.photo}
+        src={import.meta.env.VITE_BACKEND_ASSET_URL + recipe.photo}
         alt=""
       />
       <div className="flex justify-between">
